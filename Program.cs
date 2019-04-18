@@ -23,7 +23,7 @@ namespace FolderFilesTree
             log.LogFinalTime();
 
             tree2.PrintTree();
-            Console.ReadKey();
+
         }
 
     }

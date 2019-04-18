@@ -57,8 +57,8 @@ namespace FolderFilesTree
 
                     else
                     {
-                        ILogger logger = Logger.GetLogger();
-                        logger.LogAccessDenied(parentNode.Name);
+                        //  ILogger logger = Logger.GetLogger();
+                        // logger.LogAccessDenied(parentNode.Name);
                     }
                 }
                 catch (Exception e)
@@ -92,6 +92,7 @@ namespace FolderFilesTree
                     dirTree.Push(d);
                 }
             }
+            Console.ReadKey();
         }
 
     }
