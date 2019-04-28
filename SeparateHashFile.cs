@@ -99,7 +99,9 @@ namespace FolderFilesTree
 
         }
 
-        public void EmergencyStopParallelWork()//если произошла внештатная ситуация во время обработки файла
+        public void EmergencyStopParallelWork()
+        //если произошла внештатная ситуация во время обработки файла
+        //(ни разу не использовалась)
         {
             for (int i = 0; i < _realThreadCount; ++i)
             {
