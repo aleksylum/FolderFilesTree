@@ -12,16 +12,15 @@ namespace FolderFilesTree
         
         public FolderTree()
         {
-            Tree = new List<TreeNode>();// { new TreeNode(root) };
+            Tree = new List<TreeNode>();
 
         }
         public static FolderTree Create(string root)
         {
-
             FolderTree folderTree = new FolderTree();
             //корень дерева
             Queue<TreeNode> dirTree = new Queue<TreeNode>();
-            dirTree.Enqueue(new TreeNode(root));//
+            dirTree.Enqueue(new TreeNode(root));
             while (dirTree.Count != 0)
             {
                 //достаем родит узел и удаляем из очереди
@@ -29,16 +28,7 @@ namespace FolderFilesTree
 
                 try
                 {
-                    //if (parentNode.Name == ($"C:\\Users\\shasha\\Test\\Link"))//C:\\Users\\shasha\\AppData
-                    //{
-                    //    Console.WriteLine("!!!");
-                    //}
-
-                    //if (parentNode.Name == ($"C:\\Users\\shasha\\Test\\Link\\Link"))//C:\\Users\\shasha\\AppData
-                    //{
-                    //    Console.WriteLine("!!!");
-                    //}
-
+                   
                     if (CheckFolderAccess.CheckAccess(parentNode.Name))
                     {
                         //string[] tempDir = Directory.GetDirectories(parentNode.Name);

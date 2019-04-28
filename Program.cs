@@ -10,7 +10,7 @@ namespace FolderFilesTree
             ILogger log = Logger.GetLogger();
             log.LogStartTime();
 
-            FolderTree tree = FolderTree.Create(@"C:\Users\shasha\Test");//Users\shasha\Desktop\FACEBOOK
+            FolderTree tree = FolderTree.Create(@"C:\Users\shasha");
 
             ISerializator s;
             //s = new BinSerializator();

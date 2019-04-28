@@ -10,41 +10,41 @@ using System.Threading.Tasks;
 
 namespace FolderFilesTree
 {
-    public class SeparateHashFile
+    public class SeparateHashFile: IDisposable
     {
 
-        private static readonly Int64 blockMaxSize;
-        private static readonly Int32 threadCount;
+        private static readonly Int64 _blockMaxSize;
+        private static readonly Int32 _threadCount;
 
         private BitArray _resultHash;
         private String _fileName;
-        private Int64 _blockCount;
+        private Int32 _blockCount;
+        private Int32 _realThreadCount;
         private CountdownEvent _finished;
         private Object _locker;
         private BlockingCollection<byte[]> _collection;
         private Thread[] _threads;
-        private Int32 _realThreadCount;
+
 
         static SeparateHashFile()
         {
-            blockMaxSize = 16384;
-            threadCount = Environment.ProcessorCount;// - 2
+            _blockMaxSize = 16384;
+            _threadCount = Environment.ProcessorCount - 2;
         }
 
         public SeparateHashFile(String name)
         {
-
             _locker = new Object();
             _fileName = name;
-            _blockCount = (new FileInfo(_fileName).Length + blockMaxSize - 1) / blockMaxSize;
-            _realThreadCount = (int)((threadCount > _blockCount) ? _blockCount : threadCount);
+            _blockCount = (Int32)((new FileInfo(_fileName).Length + _blockMaxSize - 1) / _blockMaxSize);
+            _realThreadCount = (_threadCount > _blockCount) ? _blockCount : _threadCount;
             _collection = new BlockingCollection<byte[]>(_realThreadCount);
             _threads = new Thread[_realThreadCount];
         }
 
         public Byte[] ParallelCalcResult()
         {
-            _finished = new CountdownEvent((Int32)_blockCount);
+            _finished = new CountdownEvent(_blockCount);
             Separate();
             _finished.Wait();
             return ArrayConverter.ConvertBitsToBytes(_resultHash);
@@ -63,13 +63,11 @@ namespace FolderFilesTree
                     {
                         for (int i = 0; i < _blockCount; ++i)
                         {
-                            stream.Seek(i * blockMaxSize, SeekOrigin.Begin);
-                            byte[] buffer = new byte[blockMaxSize];
-
+                            stream.Seek(i * _blockMaxSize, SeekOrigin.Begin);
+                            byte[] buffer = new byte[_blockMaxSize];
                             stream.Read(buffer, 0, buffer.Length);
-
                             _collection.Add(buffer);
-                         
+
                         }
 
                         _collection.CompleteAdding();
@@ -85,6 +83,9 @@ namespace FolderFilesTree
             {
                 IExceptionHandler h = new ExceptionHandler();
                 h.HandleException(e);
+                _resultHash = null;
+                _finished.Reset(0);
+
             }
         }
         public void StartParallelWork()
@@ -104,13 +105,11 @@ namespace FolderFilesTree
             {
                 _threads[i].Abort();
             }
-            _resultHash = null;
-            _finished.Reset(0);
+
         }
 
         public void ParalellGetHash()
         {
-
             while (!_collection.IsCompleted)//!finished.IsSet
             {
                 try
@@ -144,11 +143,14 @@ namespace FolderFilesTree
                     _finished.Signal();
                 }
 
-
             }
 
         }
 
+        public void Dispose()
+        {
+            _finished.Dispose();
+        }
     }
 }
 

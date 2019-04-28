@@ -50,7 +50,6 @@ namespace FolderFilesTree
                         {
                             IExceptionHandler h = new ExceptionHandler();
                             h.HandleException(e);
-
                         }
 
                     }
