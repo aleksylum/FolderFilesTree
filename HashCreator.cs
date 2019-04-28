@@ -45,7 +45,7 @@ namespace FolderFilesTree
                             currentFile.HashCode = separateHashFile.ParallelCalcResult();
                         }
                     }
-                    catch (IOException e)
+                    catch (Exception e)
                     {
                         {
                             IExceptionHandler h = new ExceptionHandler();
