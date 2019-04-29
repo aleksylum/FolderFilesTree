@@ -29,40 +29,55 @@ namespace FolderFilesTree
 
         public void LogStartTime()
         {
-            using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
-            {
-                _sw.Start();
-                s.WriteLine("START TIME: " + DateTime.Now);
-            }
+            
+                using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+                {
+                    _sw.Start();
+                    s.WriteLine("START TIME: " + DateTime.Now);
+                }
+            
+           
         }
 
         public void LogException(String e)
         {
-            using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+            try {
+                using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+                
+                    s.WriteLine(DateTime.Now + " " + e);
+                }
+            catch (Exception ex)
             {
-                s.WriteLine(DateTime.Now+ " "+ e);
+                Console.WriteLine("Conflict with write LogException");
             }
         }
 
         public void LogAccessDenied(String path)
         {
-            using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+            try
             {
-                s.WriteLine(DateTime.Now + " Access denied " + path);
+                using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+                {
+                    s.WriteLine(DateTime.Now + " Access denied " + path);
+                }
+            }
+             catch (Exception ex)
+            {
+                Console.WriteLine("Conflict with write LogAccessDenied");
             }
         }
 
         public void LogFinalTime()
         {
-            _sw.Stop();
+                _sw.Stop();
             using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
             {
                 s.WriteLine("FINAL TIME: " + DateTime.Now);
                 s.WriteLine("TIME: " + (_sw.ElapsedMilliseconds / 1000.0).ToString());
             }
-        }
+               
 
-    }
+        }
 
 
 
