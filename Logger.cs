@@ -16,10 +16,11 @@ namespace FolderFilesTree
         {
             _path = "log.txt";
             _sw = new Stopwatch();
-            using (StreamWriter s = new StreamWriter(_path, false, Encoding.Default));
+            using (StreamWriter s = new StreamWriter(_path, false, Encoding.Default)) ;
         }
 
-        public static Logger GetLogger() {
+        public static Logger GetLogger()
+        {
             if (_logger == null)
             {
                 _logger = new Logger();
@@ -29,23 +30,24 @@ namespace FolderFilesTree
 
         public void LogStartTime()
         {
-            
-                using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
-                {
-                    _sw.Start();
-                    s.WriteLine("START TIME: " + DateTime.Now);
-                }
-            
-           
+
+            using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
+            {
+                _sw.Start();
+                s.WriteLine("START TIME: " + DateTime.Now);
+            }
+
+
         }
 
         public void LogException(String e)
         {
-            try {
+            try
+            {
                 using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
-                
+
                     s.WriteLine(DateTime.Now + " " + e);
-                }
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Conflict with write LogException");
@@ -61,64 +63,22 @@ namespace FolderFilesTree
                     s.WriteLine(DateTime.Now + " Access denied " + path);
                 }
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("Conflict with write LogAccessDenied");
+                Console.WriteLine(" LogAccessDenied");
             }
         }
 
         public void LogFinalTime()
         {
-                _sw.Stop();
+            _sw.Stop();
             using (StreamWriter s = new StreamWriter(_path, true, Encoding.Default))
             {
                 s.WriteLine("FINAL TIME: " + DateTime.Now);
                 s.WriteLine("TIME: " + (_sw.ElapsedMilliseconds / 1000.0).ToString());
             }
-               
 
         }
 
-
-
-    //public class Logger : ILogger
-    //{
-    //    private string path;
-    //    System.Diagnostics.Stopwatch sw;
-
-    //    public Logger()
-    //    {
-    //        path = "log.txt";
-    //        sw = new Stopwatch();
-    //        using (StreamWriter s = new StreamWriter(path, false, Encoding.Default));
-    //    }
-
-    //    public void LogStartTime()
-    //    {
-    //        using (StreamWriter s = new StreamWriter(path, true, Encoding.Default))
-    //        {
-    //            sw.Start();
-    //            s.WriteLine(DateTime.Now);
-    //        }
-    //    }
-
-    //    public void LogException(String e)
-    //    {
-    //        using (StreamWriter s = new StreamWriter(path, true, Encoding.Default))
-    //        {
-    //            s.WriteLine(e);
-    //        }
-    //    }
-
-    //    public void LogFinalTime()
-    //    {
-    //        sw.Stop();
-    //        using (StreamWriter s = new StreamWriter(path, true, Encoding.Default))
-    //        {
-    //            s.WriteLine((sw.ElapsedMilliseconds / 1000.0).ToString());
-    //        }
-    //    }
-
-
-    //}
+    }
 }
