@@ -10,19 +10,21 @@ namespace FolderFilesTree
             ILogger log = Logger.GetLogger();
             log.LogStartTime();
 
-            FolderTree tree = FolderTree.Create(@"C:\");
+            FolderTree tree = new FolderTree();
+            tree.BuildFolderTree(@"C:\");
 
-            ISerializator s;
+            ISerializator s = new JsonSerializator();
             //s = new BinSerializator();
             //s = new XmlSerializator();
-            s = new JsonSerializator();
 
             s.SerializeTree(tree);
+
             FolderTree tree2 = s.DeserializeTree();
+
+            tree2.PrintTree();
 
             log.LogFinalTime();
 
-            tree2.PrintTree();
             Console.ReadKey();
         }
 

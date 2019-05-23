@@ -37,7 +37,6 @@ namespace FolderFilesTree
                 s.WriteLine("START TIME: " + DateTime.Now);
             }
 
-
         }
 
         public void LogException(String e)

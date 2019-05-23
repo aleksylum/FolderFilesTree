@@ -10,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace FolderFilesTree
 {
-    public static class CheckFolderAccess
+    public static class AccessChecker
     {
-        public static bool CheckAccess(String path)
+        public static bool Check(String path)
         {
 
-            if (path == ($"C:\\System Volume Information"))
-                return false;
-            
+            if (path == ($"C:\\System Volume Information")) return false;
+
             bool listDirAllow = false;
             bool listDirDeny = false;
 
@@ -25,15 +24,13 @@ namespace FolderFilesTree
             {
                 DirectorySecurity accessControlList = Directory.GetAccessControl(path);
 
-                if (accessControlList == null)
-                    return false;
-   
+                if (accessControlList == null) return false;
+
                 AuthorizationRuleCollection accessRules = accessControlList.
                     GetAccessRules(true, true,
                     typeof(System.Security.Principal.SecurityIdentifier));
 
-                if (accessRules == null)
-                    return false;
+                if (accessRules == null) return false;
 
 
                 foreach (FileSystemAccessRule rule in accessRules)

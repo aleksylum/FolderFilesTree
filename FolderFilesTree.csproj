@@ -62,25 +62,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayConverter.cs" />
-    <Compile Include="BinSerializator.cs" />
-    <Compile Include="CheckFolderAccess.cs" />
-    <Compile Include="ExceptionHandler.cs" />
-    <Compile Include="FolderTree.cs" />
-    <Compile Include="HashCreator.cs" />
-    <Compile Include="Hasher.cs" />
-    <Compile Include="IExceptionHandler.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="ISerializator.cs" />
-    <Compile Include="JsonSerializator.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="OurFile.cs" />
+    <Compile Include="HashCalculator\ArrayConverter.cs" />
+    <Compile Include="Pipeline\Reader.cs" />
+    <Compile Include="Serializator\BinSerializator.cs" />
+    <Compile Include="TreeStructure\Helpers\AccessChecker.cs" />
+    <Compile Include="QueueComponents\ComponentForHash.cs" />
+    <Compile Include="ExceptionHandler\ExceptionHandler.cs" />
+    <Compile Include="TreeStructure\FolderTree.cs" />
+    <Compile Include="Pipeline\ComponentCreator.cs" />
+    <Compile Include="HashCalculator\Hasher.cs" />
+    <Compile Include="ExceptionHandler\IExceptionHandler.cs" />
+    <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Serializator\ISerializator.cs" />
+    <Compile Include="Serializator\JsonSerializator.cs" />
+    <Compile Include="Logger\Logger.cs" />
+    <Compile Include="TreeStructure\Helpers\TreeBuilder.cs" />
+    <Compile Include="TreeStructure\OurFile.cs" />
+    <Compile Include="QueueComponents\PartOfFileForHash.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReparsePoint .cs" />
-    <Compile Include="SeparateHashFile.cs" />
-    <Compile Include="TreeNode.cs" />
-    <Compile Include="XmlSerializator.cs" />
+    <Compile Include="Pipeline\Writer.cs" />
+    <Compile Include="TreeStructure\ReparsePoint .cs" />
+    <Compile Include="TreeStructure\TreeNode.cs" />
+    <Compile Include="Serializator\XmlSerializator.cs" />
+    <Compile Include="TreeStructure\Helpers\TreePrinter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

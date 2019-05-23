@@ -12,7 +12,7 @@ namespace FolderFilesTree
     {
 
         public String Name { get; }
-        //реальный путь?
+
 
         public ReparsePoint(string name)
         {
